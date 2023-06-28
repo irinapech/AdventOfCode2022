@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode2022
 {
-    public static class Day2_1
+    public static class Day2_2
     {
         public static void Execute()
         {
@@ -22,27 +22,50 @@ namespace AdventOfCode2022
                 int lossPoints = 0;
                 int drawPoints = 3;
                 int winPoints = 6;
+                int pointsForRock = 1;
+                int pointsForPaper = 2;
+                int pointsForScissors = 3;
 
                 while (line != null)
                 {
                     choices = line.Split(' ');
-                    int points = Convert.ToInt32(Convert.ToChar(choices[1]));
-                    totalPoints += points - Convert.ToInt32('W');
-                    if (Convert.ToInt32(Convert.ToChar(choices[1])) -Convert.ToInt32(Convert.ToChar(choices[0])) == distanceBetweenLetters)
+
+                    if (choices[1] == "Y")
                     {
                         totalPoints += drawPoints; // it's a draw
+                        totalPoints += Convert.ToInt32(Convert.ToChar(choices[0])) - Convert.ToInt32('@');
                     }
-                    if (choices[0] == "A" && choices[1] == "Z"
-                        || choices[0] == "B" && choices[1] == "X"
-                        || choices[0] == "C" && choices[1] == "Y")
-                    {
+                    else if (choices[1] == "X")
+                    { 
                         totalPoints += lossPoints; // it's a loss
+                        if (choices[0] == "A")
+                        {
+                            totalPoints += pointsForScissors;
+                        }
+                        if (choices[0] == "B")
+                        {
+                            totalPoints += pointsForRock;
+                        }
+                        if (choices[0] == "C")
+                        {
+                            totalPoints += pointsForPaper;
+                        }
                     }
-                    if (choices[0] == "A" && choices[1] == "Y"
-                        || choices[0] == "B" && choices[1] == "Z"
-                        || choices[0] == "C" && choices[1] == "X")
-                    {
+                    else if (choices[1] == "Z")
+                    { 
                         totalPoints += winPoints; // it's a win
+                        if (choices[0] == "A")
+                        {
+                            totalPoints += pointsForPaper;
+                        }
+                        if (choices[0] == "B")
+                        {
+                            totalPoints += pointsForScissors;
+                        }
+                        if (choices[0] == "C")
+                        {
+                            totalPoints += pointsForRock;
+                        }
                     }
                     line = sr.ReadLine();
                 }
@@ -58,4 +81,5 @@ namespace AdventOfCode2022
             }
         }
     }
+
 }
