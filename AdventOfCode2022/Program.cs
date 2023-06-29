@@ -7,7 +7,7 @@ namespace AdventOfCode2022.Solutions
     {
         public static void Main()
         {
-            Day2_2.Execute();
+            Day3_1.Execute();
         }
     }
 }
