@@ -23,7 +23,12 @@ namespace AdventOfCode2022
                     for (int i = 1; i < elvesPerGroup; i++)
                     {
                         line2 = sr.ReadLine();
-                        var common = line.Intersect(line2);
+                        string[] common = line.Intersect(line2);
+                        foreach (var c in common)
+                        {
+                            Console.WriteLine(c);
+                        }
+                        Console.ReadLine();
                     }
                 }
             }
