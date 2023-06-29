@@ -13,12 +13,19 @@ namespace AdventOfCode2022
             String line;
             try
             {
-                Console.WriteLine("Hello World!");
+                int sumOfPriorities = 0;
+                int priorityOfa = 1;
+                int priorityOfA = 27;
+                string rucksack1, rucksack2;
+                
                 StreamReader sr = new StreamReader("C:\\Users\\DSU\\OneDrive - Dakota State University\\Desktop\\repositories\\AdventOfCode2022\\AdventOfCode2022\\Day3.txt");
                 line = sr.ReadLine();
                 while (line != null)
                 {
                     Console.WriteLine(line);
+                    rucksack1 = line.Substring(0, (int)(line.Length / 2));
+                    rucksack2 = line.Substring((int)line.Length / 2, line.Length);
+                    
                     line = sr.ReadLine();
                 }
                 Console.ReadLine();
