@@ -17,15 +17,15 @@ namespace AdventOfCode2022
                 int priorityOfa = 1;
                 int priorityOfA = 27;
                 string rucksack1, rucksack2;
-                
-                StreamReader sr = new StreamReader("C:\\Users\\DSU\\OneDrive - Dakota State University\\Desktop\\repositories\\AdventOfCode2022\\AdventOfCode2022\\Day3.txt");
+
+                StreamReader sr = new StreamReader("C:\\Users\\DSU\\OneDrive - Dakota State University\\Desktop\\repos\\AdventOfCode2022\\AdventOfCode2022\\Day3.txt");
                 line = sr.ReadLine();
                 while (line != null)
                 {
                     Console.WriteLine(line);
-                    rucksack1 = line.Substring(0, (int)(line.Length / 2));
-                    rucksack2 = line.Substring((int)line.Length / 2, line.Length);
-                    
+                    rucksack1 = line.Substring(0, line.IndexOf(line.Length / 2));
+                    rucksack2 = line.Substring((int)line.Length / 2, line.Length - 1);
+
                     line = sr.ReadLine();
                 }
                 Console.ReadLine();
@@ -41,3 +41,4 @@ namespace AdventOfCode2022
         }
     }
 }
+
