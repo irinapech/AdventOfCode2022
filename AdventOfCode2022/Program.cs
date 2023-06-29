@@ -8,7 +8,6 @@ namespace AdventOfCode2022.Solutions
         public static void Main()
         {
             Day3_1.Execute();
-            Console.ReadLine();
         }
     }
 }
