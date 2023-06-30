@@ -23,7 +23,7 @@ namespace AdventOfCode2022
                 {
                     line2 = sr.ReadLine();
                     var commonBetween1and2 = line.Intersect(line2);
-                    line3 = Console.ReadLine();
+                    line3 = sr.ReadLine();
                     var commonBetween2and3 = commonBetween1and2.Intersect(line3);
                     foreach (var c in commonBetween2and3)
                     {
