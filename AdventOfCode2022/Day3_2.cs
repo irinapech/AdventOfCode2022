@@ -12,6 +12,7 @@ namespace AdventOfCode2022
         {
             String line;
             string line2;
+            string line3;
 
             int elvesPerGroup = 3;
             try
@@ -20,16 +21,15 @@ namespace AdventOfCode2022
                 line = sr.ReadLine();
                 while (line != null)
                 {
-                    for (int i = 1; i < elvesPerGroup; i++)
+                    line2 = sr.ReadLine();
+                    var commonBetween1and2 = line.Intersect(line2);
+                    line3 = Console.ReadLine();
+                    var commonBetween2and3 = commonBetween1and2.Intersect(line3);
+                    foreach (var c in commonBetween2and3)
                     {
-                        line2 = sr.ReadLine();
-                        var common = line.Intersect(line2);
-                        foreach (var c in common)
-                        {
-                            Console.WriteLine(c);
-                        }
-                        Console.ReadLine();
+                        Console.WriteLine(c);
                     }
+                    line = sr.ReadLine();
                 }
             }
             catch (Exception e)
