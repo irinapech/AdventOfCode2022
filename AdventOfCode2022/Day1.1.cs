@@ -13,8 +13,7 @@ namespace AdventOfCode2022
             String line;
             try
             {
-                StreamReader sr = new StreamReader("C:\\Users\\DSU\\source\\repos\\AdventOfCode2023\\AdventOfCode2023\\Day1.txt");
-                line = sr.ReadLine();
+                StreamReader sr = new StreamReader("C:\\Users\\DSU\\OneDrive - Dakota State University\\Desktop\\repos\\AdventOfCode2022\\AdventOfCode2022\\Day1.txt");
 
                 double maxCalories = 0;
                 double sumOfCalories = 0;

@@ -13,7 +13,7 @@ namespace AdventOfCode2022
             String line;
             try
             {
-                StreamReader sr = new StreamReader("C:\\Users\\DSU\\source\\repos\\AdventOfCode2023\\AdventOfCode2023\\Day2.txt");
+                StreamReader sr = new StreamReader("C:\\Users\\DSU\\OneDrive - Dakota State University\\Desktop\\repos\\AdventOfCode2022\\AdventOfCode2022\\Day2.txt");
                 line = sr.ReadLine();
 
                 string[] choices;
