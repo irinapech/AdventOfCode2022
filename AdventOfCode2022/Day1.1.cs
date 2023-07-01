@@ -18,6 +18,8 @@ namespace AdventOfCode2022
                 double maxCalories = 0;
                 double sumOfCalories = 0;
 
+                line = sr.ReadLine();
+
                 while (line != null)
                 {
                     while (!string.IsNullOrEmpty(line))
