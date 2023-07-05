@@ -4,7 +4,7 @@
     {
         public static void Main()
         {
-            Day7_1.Execute();
+            Day8_1.Execute();
         }
     }
 }
