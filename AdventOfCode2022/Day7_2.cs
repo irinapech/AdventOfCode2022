@@ -3,7 +3,7 @@ using System.Data;
 
 namespace AdventOfCode2022
 {
-    public static class Day7_1
+    public static class Day7_2
     {
         public static void Execute()
         {
@@ -30,9 +30,9 @@ namespace AdventOfCode2022
 
                 int size;
 
-                int maxSize = 100000;
+                int sizeOfTotalSpace = 70000000;
 
-                int sumOfMaxSizes = 0;
+                int neededSpace = 30000000;
 
                 foreach (string command in commands)
                 {
@@ -63,7 +63,7 @@ namespace AdventOfCode2022
                     else
                     {
                         size = Convert.ToInt32(command.Split(' ')[0]);
-                        foreach(string item in stack)
+                        foreach (string item in stack)
                         {
                             if (sizes.ContainsKey(item))
                             {
@@ -76,15 +76,19 @@ namespace AdventOfCode2022
                         }
                     }
                 }
-                foreach (KeyValuePair<string, int> pair in sizes)
+
+                int sizeOfUsedSpace = sizes["/"];
+                int sizeOfUnusedSpace = sizeOfTotalSpace - sizeOfUsedSpace;
+                var sortedSizes = from pair in sizes orderby pair.Value ascending select pair;
+                foreach (KeyValuePair<string, int> pair in sortedSizes)
                 {
-                    if (pair.Value < maxSize)
+                    if ((sizeOfUnusedSpace + pair.Value) >= neededSpace)
                     {
-                        sumOfMaxSizes += pair.Value;
+                        Console.WriteLine(pair.Value);
+                        break;
                     }
                 }
 
-                Console.WriteLine("Sum of sizes under 100,000: " + sumOfMaxSizes);
             }
             catch (Exception e)
             {
