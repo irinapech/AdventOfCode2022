@@ -15,35 +15,129 @@ namespace AdventOfCode2022
             {
                 StreamReader sr = new StreamReader("C:\\Users\\DSU\\OneDrive - Dakota State University\\Desktop\\repos\\AdventOfCode2022\\AdventOfCode2022\\Day8.txt");
 
-                List<List<int>> treeHeights = new List<List<int>>();
+                List<string> input = new List<string>();
 
                 line = sr.ReadLine();
 
-                int i, j;
-
-                for (i = 0;  line != null; i++)
+                while (line != null)
                 {
-                    Console.WriteLine(line);
-                    treeHeights[i] = new List<int>();
-                    for (j = 0; j < line.Length; j++)
-                    {
-                        char tree = line[j];
-                        treeHeights[i].Add(Convert.ToInt32(tree));
-                    }
-                    int numberOfColumns = j;
+                    input.Add(line);
                     line = sr.ReadLine();
                 }
-                int numberOfRows = i;
 
-                for (int k = 0; k < numberOfRows; k++)
-                {
-                    for (int l = 0; l < numberOfRows;  l++)
-                    {
-                        Console.Write(treeHeights[k][l] + " ");
-                    }
-                    Console.WriteLine("\n");
-                }
                 sr.Close();
+
+                int numberOfRows = input.Count;
+                int numberOfColumns = input[0].Length;
+
+                int[,] treeHeights = new int[numberOfRows, numberOfColumns];
+
+                for (int i = 0; i <  numberOfRows; i++)
+                {
+                    for (int j = 0; j < numberOfColumns; j++)
+                    {
+                        treeHeights[i, j] = Convert.ToInt32(Char.GetNumericValue(input[i][j]));
+                    }
+                }
+
+                int numberOfVisibleTrees = 0;
+
+                int[,] treesVisibility = new int[numberOfRows, numberOfColumns];
+                int maxHeight;
+
+                for (int i = 0; i < numberOfRows; i++)
+                {
+                    for (int j = 0; j < numberOfColumns; j++)
+                    {
+                        treesVisibility[i, j] = 0;
+                        Console.Write(treesVisibility[i, j] + " ");
+                    }
+                    Console.WriteLine();
+                }
+
+                // iterating from left to right
+                for (int i = 1; i < numberOfRows - 1; i++)
+                {
+                    maxHeight = treeHeights[i, 0]; // making the leftmost tree the highest
+                    for (int j = 1; j < numberOfColumns - 1; j++)
+                    {
+                        if (treeHeights[i, j] > maxHeight)
+                        {
+                            maxHeight = treeHeights[i, j];
+                            treesVisibility[i, j] = 1;
+                        }
+                    }
+                }
+
+                // iterating from right to left
+                for (int i = 1; i < numberOfRows - 1; i++)
+                {
+                    maxHeight = treeHeights[i, numberOfColumns - 1]; // making the rightmost tree the highest
+                    for (int j = numberOfColumns - 1; j > 0; j--)
+                    {
+                        if (treeHeights[i, j] > maxHeight)
+                        {
+                            maxHeight = treeHeights[i, j];
+                            treesVisibility[i, j] = 1;
+                        }
+                    }
+                }
+
+                // iterating from top to bottom
+                for (int i = 1; i < numberOfColumns - 1; i++)
+                {
+                    maxHeight = treeHeights[0, i];
+                    for (int j = 1; j < numberOfRows - 1; j++)
+                    {
+                        if (treeHeights[j, i] > maxHeight)
+                        {
+                            maxHeight = treeHeights[j, i];
+                            treeHeights[j, i] = 1;
+                        }
+                    }
+                }
+
+                // iterating from bottom to top
+                for (int i = 1; i < numberOfColumns - 1; i++)
+                {
+                    maxHeight = treeHeights[numberOfRows - 1, i];
+                    for (int j = numberOfRows - 1; j > 0; j--)
+                    {
+                        if (treeHeights[j, i] > maxHeight)
+                        {
+                            maxHeight = treeHeights[j, i];
+                            treeHeights[j, i] = 1;
+                        }
+                    }
+                }
+
+                for (int i = 0; i <  numberOfRows; i++)
+                {
+                    for (int j = 0; j < numberOfColumns; j++)
+                    {
+                        if (treesVisibility[i, j] == 1)
+                        {
+                            numberOfVisibleTrees++;
+                        }
+                    }
+                }
+
+                Console.WriteLine("Trees visibility: ");
+                for (int i = 0; i < numberOfRows; i++)
+                {
+                    for (int j = 0; j < numberOfColumns; j++)
+                    {
+                        Console.Write(treesVisibility[i, j] + " ");
+                    }
+                    Console.WriteLine();
+                }
+
+                int numberOfEdgeTrees = 2 * numberOfColumns + 2 * (numberOfRows - 2);
+                Console.WriteLine("Number of edge trees: " + numberOfEdgeTrees);
+                numberOfVisibleTrees += numberOfEdgeTrees;
+
+                Console.WriteLine("Number of visible trees: " + numberOfVisibleTrees);
+
                 Console.ReadLine();
             }
             catch (Exception e)
