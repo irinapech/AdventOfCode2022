@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode2022
+﻿namespace AdventOfCode2022
 {
     public static class Day8_1
     {
@@ -50,9 +44,7 @@ namespace AdventOfCode2022
                     for (int j = 0; j < numberOfColumns; j++)
                     {
                         treesVisibility[i, j] = 0;
-                        Console.Write(treesVisibility[i, j] + " ");
                     }
-                    Console.WriteLine();
                 }
 
                 // iterating from left to right
@@ -61,7 +53,7 @@ namespace AdventOfCode2022
                     maxHeight = treeHeights[i, 0]; // making the leftmost tree the highest
                     for (int j = 1; j < numberOfColumns - 1; j++)
                     {
-                        if (treeHeights[i, j] > maxHeight)
+                        if (treeHeights[i, j] >= maxHeight)
                         {
                             maxHeight = treeHeights[i, j];
                             treesVisibility[i, j] = 1;
@@ -73,9 +65,9 @@ namespace AdventOfCode2022
                 for (int i = 1; i < numberOfRows - 1; i++)
                 {
                     maxHeight = treeHeights[i, numberOfColumns - 1]; // making the rightmost tree the highest
-                    for (int j = numberOfColumns - 1; j > 0; j--)
+                    for (int j = numberOfColumns - 2; j > 0; j--)
                     {
-                        if (treeHeights[i, j] > maxHeight)
+                        if (treeHeights[i, j] >= maxHeight)
                         {
                             maxHeight = treeHeights[i, j];
                             treesVisibility[i, j] = 1;
@@ -89,7 +81,7 @@ namespace AdventOfCode2022
                     maxHeight = treeHeights[0, i];
                     for (int j = 1; j < numberOfRows - 1; j++)
                     {
-                        if (treeHeights[j, i] > maxHeight)
+                        if (treeHeights[j, i] >= maxHeight)
                         {
                             maxHeight = treeHeights[j, i];
                             treeHeights[j, i] = 1;
@@ -101,9 +93,9 @@ namespace AdventOfCode2022
                 for (int i = 1; i < numberOfColumns - 1; i++)
                 {
                     maxHeight = treeHeights[numberOfRows - 1, i];
-                    for (int j = numberOfRows - 1; j > 0; j--)
+                    for (int j = numberOfRows - 2; j > 0; j--)
                     {
-                        if (treeHeights[j, i] > maxHeight)
+                        if (treeHeights[j, i] >= maxHeight)
                         {
                             maxHeight = treeHeights[j, i];
                             treeHeights[j, i] = 1;

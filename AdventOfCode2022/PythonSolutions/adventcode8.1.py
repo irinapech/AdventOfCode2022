@@ -21,9 +21,11 @@ for i in range(1, forest_height - 1):
                     or max(trees_to_right) < central_tree \
                     or max(trees_below) < central_tree \
                     or max(trees_above) < central_tree:
-            print(f"visible tree: {forest_int[i][j]} at position [{i}][{j}]")
+            #print(f"visible tree: {forest_int[i][j]} at position [{i}][{j}]")
             visible_trees += 1
 
+print(visible_trees)
+print((forest_height + forest_width) * 2 - 4)
 visible_trees += (forest_height + forest_width) * 2 - 4
 
 print(visible_trees)
