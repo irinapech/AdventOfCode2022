@@ -34,8 +34,6 @@
                     }
                 }
 
-                int numberOfVisibleTrees = 0;
-
                 int[,] treesVisibility = new int[numberOfRows, numberOfColumns];
                 int maxHeight;
 
@@ -103,26 +101,28 @@
                     }
                 }
 
-                for (int i = 0; i <  numberOfRows; i++)
+                int numberOfVisibleTrees = 0;
+
+                for (int i = 1; i <  numberOfRows - 1; i++)
                 {
-                    for (int j = 0; j < numberOfColumns; j++)
+                    for (int j = 1; j < numberOfColumns - 1; j++)
                     {
                         if (treesVisibility[i, j] == 1)
                         {
-                            numberOfVisibleTrees++;
+                            numberOfVisibleTrees += 1;
                         }
                     }
                 }
 
-                Console.WriteLine("Trees visibility: ");
-                for (int i = 0; i < numberOfRows; i++)
-                {
-                    for (int j = 0; j < numberOfColumns; j++)
-                    {
-                        Console.Write(treesVisibility[i, j] + " ");
-                    }
-                    Console.WriteLine();
-                }
+                //Console.WriteLine("Trees visibility: ");
+                //for (int i = 0; i < numberOfRows; i++)
+                //{
+                //    for (int j = 0; j < numberOfColumns; j++)
+                //    {
+                //        Console.Write(treesVisibility[i, j] + " ");
+                //    }
+                //    Console.WriteLine();
+                //}
 
                 int numberOfEdgeTrees = 2 * numberOfColumns + 2 * (numberOfRows - 2);
                 Console.WriteLine("Number of edge trees: " + numberOfEdgeTrees);
