@@ -1,4 +1,4 @@
-with open("day8.txt") as file:
+with open("AdventOfCode2022\PythonSolutions\day8.txt") as file:
     forest = file.readlines()
 
 forest_int = [[int(x) for x in tree_line.strip()] for tree_line in forest]

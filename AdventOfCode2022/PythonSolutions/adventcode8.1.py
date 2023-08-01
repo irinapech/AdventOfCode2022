@@ -1,4 +1,4 @@
-with open("day8.txt") as file:
+with open("AdventOfCode2022\PythonSolutions\day8.txt") as file:
     forest = file.readlines()
 
 forest_int = [[int(x) for x in tree_line.strip()] for tree_line in forest]
@@ -24,8 +24,6 @@ for i in range(1, forest_height - 1):
             #print(f"visible tree: {forest_int[i][j]} at position [{i}][{j}]")
             visible_trees += 1
 
-print(visible_trees)
-print((forest_height + forest_width) * 2 - 4)
 visible_trees += (forest_height + forest_width) * 2 - 4
 
 print(visible_trees)
