@@ -118,9 +118,9 @@ namespace AdventOfCode2022
                 Console.WriteLine("The top of each stack: ");
                 for (int i = 0; i < cratesStack.Count; i++)
                 {
-                    Console.Write(i + " " + cratesStack[i].Peek());
-                    Console.Write("\n");
+                    Console.Write(cratesStack[i].Peek());
                 }
+                Console.Write("\n");
 
             }
             catch (Exception e)
