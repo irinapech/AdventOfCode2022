@@ -13,16 +13,22 @@ namespace AdventOfCode2022
             String line;
             try
             {
-                StreamReader sr = new StreamReader("C:\\Users\\DSU\\OneDrive - Dakota State University\\Desktop\\repos\\AdventOfCode2022\\AdventOfCode2022\\Day5.txt");
+                StreamReader sr = new StreamReader("C:\\Users\\DSU\\OneDrive - Dakota State University\\Desktop\\repositories\\AdventOfCode2022\\AdventOfCode2022\\Day5.txt");
 
                 line = sr.ReadLine();
 
-                Dictionary<int, List<char>> crates = new Dictionary<int, List<char>>();
                 List<string> instructions = new List<string>();
+
+                List<Stack<char>> cratesStack = new List<Stack<char>>(9);
 
                 int crateLocation;
                 int offset = 1;
                 int charsInColumn = 4;
+
+                for (int i = 0; i < 9; i++)
+                {
+                    cratesStack.Add(new Stack<char>());
+                }
 
                 while (line != null)
                 {
@@ -32,12 +38,8 @@ namespace AdventOfCode2022
                         {
                             if (Char.IsLetter(line[i]))
                             {
-                                crateLocation = (i - offset) / charsInColumn + 1;
-                                if (!crates.ContainsKey(crateLocation))
-                                {
-                                    crates[crateLocation] = new List<char>();
-                                }
-                                crates[crateLocation].Add(line[i]);
+                                crateLocation = (i - offset) / charsInColumn;
+                                cratesStack[crateLocation].Push(line[i]);
                             }
                         }
                         line = sr.ReadLine();
@@ -53,22 +55,31 @@ namespace AdventOfCode2022
                 }
                 sr.Close();
 
-                Console.WriteLine();
-                foreach (KeyValuePair<int, List<char>> pair in crates)
+                for (int i = 0; i < cratesStack.Count; i++)
                 {
-                    Console.WriteLine("\nKey = {0}", pair.Key);
-                    foreach (char c in pair.Value)
+                    Stack<char> sortedStack = new Stack<char>();
+                    while (cratesStack[i].Count > 0)
                     {
-                        Console.Write(c + " ");
+                        sortedStack.Push(cratesStack[i].Pop());
                     }
+                    cratesStack[i] = sortedStack;
                 }
 
-                Console.WriteLine("\nInstructions: ");
-                foreach (string instruction in instructions)
-                {
-                    Console.WriteLine(instruction);
-                }
-                Console.ReadLine();
+                //for (int i = 0; i < cratesStack.Count; i++)
+                //{
+                //    foreach (char c in cratesStack[i])
+                //    {
+                //        Console.Write(c + " ");
+                //    }
+                //    Console.Write("\n");
+                //}
+
+                //Console.WriteLine("Instructions:\n");
+                //foreach (string instruction in instructions)
+                //{
+                //    Console.WriteLine(instruction);
+                //}
+                //Console.ReadLine();
 
                 int numberOfCratesToMove;
                 int sourcePile;
@@ -77,26 +88,32 @@ namespace AdventOfCode2022
                 foreach (string instruction in instructions)
                 {
                     string[] subs = instruction.Split(' ');
-                    Console.WriteLine(instruction);
+                    // Console.WriteLine(instruction);
                     numberOfCratesToMove = Convert.ToInt32(subs[1]);
-                    sourcePile = Convert.ToInt32(subs[3]);
-                    destinationPile = Convert.ToInt32(subs[5]);
+                    sourcePile = Convert.ToInt32(subs[3]) - 1;
+                    destinationPile = Convert.ToInt32(subs[5]) - 1;
 
                     for (int i = 0; i < numberOfCratesToMove; i++)
                     {
-                        crates[destinationPile].Insert(0, crates[sourcePile][0]);
-                        crates[sourcePile].RemoveAt(0);
+                        cratesStack[destinationPile].Push(cratesStack[sourcePile].Pop());
                     }
 
-                    Console.WriteLine("\nNew crates position: ");
-                    foreach (KeyValuePair<int, List<char>> pair in crates)
-                    {
-                        Console.WriteLine("\nKey = {0}", pair.Key);
-                        foreach (char c in pair.Value)
-                        {
-                            Console.Write(c + " ");
-                        }
-                    }
+                    //Console.WriteLine("\nNew crates position: ");
+                    //for (int i = 0; i < cratesStack.Count; i++)
+                    //{
+                    //    foreach (char c in cratesStack[i])
+                    //    {
+                    //        Console.Write(c + " ");
+                    //    }
+                    //    Console.Write("\n");
+                    //}
+                }
+
+                Console.WriteLine("The top of each stack: ");
+                for (int i = 0; i < cratesStack.Count; i++)
+                {
+                    Console.Write(i + " " + cratesStack[i].Peek());
+                    Console.Write("\n");
                 }
 
             }
