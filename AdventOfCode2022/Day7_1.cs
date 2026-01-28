@@ -12,78 +12,60 @@ namespace AdventOfCode2022
                 string line;
                 StreamReader sr = new StreamReader("C:\\Users\\DSU\\OneDrive - Dakota State University\\Desktop\\repos\\AdventOfCode2022\\AdventOfCode2022\\Day7.txt");
                 List<string> commands = new List<string>();
-
                 line = sr.ReadLine();
-
                 while (line != null)
                 {
-                    commands.Add(line);
-                    line = sr.ReadLine();
+                    if (!line.StartsWith("$ ls") && !line.StartsWith("dir"))
+                    {
+                        commands.Add(line);
+                        line = sr.ReadLine();
+                    }
                 }
-
                 sr.Close();
 
-                Dictionary<string, int> sizes = new Dictionary<string, int>();
-                Stack<string> stack = new Stack<string>();
+                Dictionary<int, int> sizes = new Dictionary<int, int>();
+                List<int> stack = new List<int>();
 
                 string path;
-
                 int size;
-
                 int maxSize = 100000;
-
                 int sumOfMaxSizes = 0;
-
-                foreach (string command in commands)
+                for (int i = 0; i < commands.Count; i++)
                 {
-                    if (command.StartsWith("$ ls") || command.StartsWith("dir"))
+                    if (commands[i].StartsWith("$ cd"))
                     {
-                        continue;
-                    }
-                    if (command.StartsWith("$ cd"))
-                    {
-                        string destination = command.Split(' ')[2];
+                        string destination = commands[i].Split(' ')[2];
                         if (destination == "..")
                         {
-                            stack.Pop();
+                            stack.RemoveAt(stack.Count - 1);
                         }
                         else
                         {
-                            if (stack.Count > 0)
-                            {
-                                path = String.Concat(stack.Peek(), '_', destination);
-                            }
-                            else
-                            {
-                                path = destination;
-                            }
-                            stack.Push(path);
+                            stack.Add(i);
+                            sizes[i] = 0;
                         }
                     }
                     else
                     {
-                        size = Convert.ToInt32(command.Split(' ')[0]);
-                        foreach(string item in stack)
+                        size = Convert.ToInt32(commands[i].Split(' ')[0]);
+                        foreach(int item in stack)
                         {
-                            if (sizes.ContainsKey(item))
-                            {
-                                sizes[item] += size;
-                            }
-                            else
-                            {
-                                sizes.Add(item, size);
-                            }
+                            sizes[item] += size;
                         }
                     }
                 }
-                foreach (KeyValuePair<string, int> pair in sizes)
+                foreach (KeyValuePair<int, int> pair in sizes)
+                {
+                    Console.WriteLine($"Key: {0} Value: {1}", pair.Key, pair.Value);
+                }
+                sumOfMaxSizes = 0;
+                foreach (KeyValuePair<int, int> pair in sizes)
                 {
                     if (pair.Value < maxSize)
                     {
                         sumOfMaxSizes += pair.Value;
                     }
                 }
-
                 Console.WriteLine("Sum of sizes under 100,000: " + sumOfMaxSizes);
             }
             catch (Exception e)
